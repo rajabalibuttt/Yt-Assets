@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Photo Gallery</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #f4f4f4;
+    }
+
+    .download-all-container {
+      margin-top: 20px;
+    }
+
+    .download-all-btn, .download-btn {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      font-size: 16px;
+      transition: transform 0.2s;
+    }
+
+    .download-all-btn:hover, .download-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .download-arrow {
+      display: inline-block;
+      transition: transform 0.3s ease;
+      margin-right: 5px;
+    }
+
+    .download-btn:active .download-arrow {
+      transform: translateY(10px); /* Move arrow down on click */
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin: 20px;
+    }
+
+    .media-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 200px;
+    }
+
+    .media-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .download-btn {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Download All button at the top -->
+  <div class="download-all-container">
+    <button class="download-all-btn" onclick="downloadAll()">Download All Photos</button>
+  </div>
+  
+  <div class="gallery">
+    <div class="media-item">
+      <img src="yt.jpg" alt="Photo 1">
+      <button class="download-btn" onclick="downloadMedia('2 yt.jpg')">
+        <span class="download-arrow">↓</span> Download
+      </button>
+    </div>
+    <div class="media-item">
+      <img src="black dots.jpg" alt="Photo 2">
+      <button class="download-btn" onclick="downloadMedia('black.jpg')">
+        <span class="download-arrow">↓</span> Download
+      </button>
+    </div>
+    <div class="media-item">
+      <img src="yt mask.jpg" alt="Photo 3">
+      <button class="download-btn" onclick="downloadMedia('blue .jpg')">
+        <span class="download-arrow">↓</span> Download
+      </button>
+    </div>
+    <div class="media-item">
+      <img src="social icons.jpg" alt="Photo 4">
+      <button class="download-btn" onclick="downloadMedia('social.jpg')">
+        <span class="download-arrow">↓</span> Download
+      </button>
+    </div>
+    <div class="media-item">
+      <img src="SUB.jpg" alt="Photo 5">
+      <button class="download-btn" onclick="downloadMedia('SUB.jpg')">
+        <span class="download-arrow">↓</span> Download
+      </button>
+    </div>
+    <div class="media-item">
+      <img src="banner.jpg" alt="Photo 6">
+      <button class="download-btn" onclick="downloadMedia('white dots.jpg')">
+        <span class="download-arrow">↓</span> Download
+      </button>
+    </div>
+    <div class="media-item">
+      <img src="yt.jpg" alt="Photo 7">
+      <button class="download-btn" onclick="downloadMedia('yt.jpg')">
+        <span class="download-arrow">↓</span> Download
+      </button>
+    </div>
+    <!-- Add more image items as needed -->
+  </div>
+  
+  <script>
+    function downloadMedia(filename) {
+      const downloadButton = event.currentTarget;
+      const arrow = downloadButton.querySelector('.download-arrow');
+      
+      // Move the arrow down temporarily to indicate download starting
+      arrow.style.transform = "translateY(10px)";
+
+      // Start download after a short animation delay
+      setTimeout(() => {
+        const link = document.createElement("a");
+        link.href = filename;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // Reset the arrow position after download starts
+        arrow.style.transform = "translateY(0)";
+      }, 300); // Delay to sync with animation
+    }
+
+    function downloadAll() {
+      const files = [
+        "2 yt.jpg", "black.jpg", "blue .jpg",
+        "social.jpg", "SUB.jpg", "white dots.jpg", "yt.jpg"
+      ];
+      
+      alert("Starting download for all photos.");
+
+      files.forEach((filename, index) => {
+        setTimeout(() => {
+          const link = document.createElement("a");
+          link.href = filename;
+          link.download = filename;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }, index * 500);
+      });
+    }
+  </script>
+</body>
+</html>
